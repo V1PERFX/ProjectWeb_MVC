@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form method="post" action="ControleClientes">
+            <input type="hidden" name="flag" value="cad_cli">
+            <p>
+              <label for="codigo"> Código: </label>                 
+              <input type="text" size="20" id="codigo" name="codigo">
+            </p>
+            <p>
+              <label for="nome"> Nome:</label>
+              <input type="text" size="50" id="nome" name="nome">
+            </p> 
+            <p>
+              <label for="endereco"> Endereço:</label>
+              <input type="text" size="70" id="endereco" name="endereco">
+            </p> 
+            <p>
+              <label for="renda"> Renda: </label>
+              <input type="text" id="renda" name="renda" placeholder="Apenas números">
+            </p>
+            <p>
+                <input type="submit" value="Salvar"> 
+            </p>
+        </form>
+    </body>
+</html>

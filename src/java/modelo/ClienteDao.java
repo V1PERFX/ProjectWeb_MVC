@@ -4,11 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ClienteDao {
 
     Connection con;
     PreparedStatement st;
+    ResultSet rs;
 
     public boolean conectar() {
         try {
@@ -55,4 +59,24 @@ public class ClienteDao {
     }
 
     // Método consultar por código
+    public Cliente consultarCodigo(String codigo){
+        try {
+            st = con.prepareStatement("SELECT * FROM cliente WHERE codigo = ?");
+            st.setString(1, codigo);
+            rs = st.executeQuery();
+            if(rs.next()){ // se encontrou o código informado
+                Cliente cliente;
+                cliente = new Cliente();
+                cliente.setCodigo(rs.getString("codigo"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setRenda(rs.getDouble("renda"));
+                return cliente;
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 }

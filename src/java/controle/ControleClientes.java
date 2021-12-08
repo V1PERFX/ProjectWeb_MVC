@@ -86,7 +86,28 @@ public class ControleClientes extends HttpServlet {
                 out.print("<p>Erro ao tentar conectar com o banco de dados</p>");
             }
         } else if (flag.equals("con_cli")) {
+            // recebeu o código do form con_cli.html
             codigo = request.getParameter("codigo");
+            // Conectar ao Banco de dados
+            dao = new ClienteDao();
+            retorno = dao.conectar();
+            // verificar se a conexao deu certo
+            if(retorno){
+                Cliente cliente;
+                // Buscar o cliente na base de dados
+                cliente = dao.consultarCodigo(codigo);
+                if(cliente != null){
+                    out.print("<b>Código:</b> " + cliente.getCodigo() + "<br>");
+                    out.print("<b>Nome:</b> " + cliente.getNome() + "<br>");
+                    out.print("<b>Endereço:</b> " + cliente.getEndereco() + "<br>");
+                    out.print("<b>Renda:</b> " + cliente.getRenda() + "<br>");
+                    out.print("<a href='ControleClientes?flag=exc_cli&codigo=" + cliente.getCodigo() + "'>Excluir</a>");
+                } else {
+                    out.print("Este cliente não está cadastrado");
+                }
+            } else {
+                out.print("Erro na conexão com o Banco de dados");
+            }
         }
     }
 
